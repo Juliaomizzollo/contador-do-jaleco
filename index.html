@@ -433,11 +433,22 @@ progresso + "%";
 let fillHeight =
 Math.min((total/4000)*260,260);
 
-document.getElementById("fillRect")
-.setAttribute("y",300-fillHeight);
+const fillRect =
+document.getElementById("fillRect");
 
-document.getElementById("fillRect")
-.setAttribute("height",fillHeight);
+if(fillRect){
+
+fillRect.setAttribute(
+"y",
+360-fillHeight
+);
+
+fillRect.setAttribute(
+"height",
+fillHeight
+);
+
+}
 
 localStorage.setItem("totalQuestoes",total);
 
