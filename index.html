@@ -162,9 +162,10 @@
         class="text-7xl font-light mt-3">
       </h2>
 
-      <p class="text-cyan-300 mt-4">
-        Meta inicial: 4.000 • progresso infinito ∞
-      </p>
+     <p
+     id="metaTexto"
+     class="text-cyan-300 mt-4 text-lg">
+     </p>
 
       <div class="w-full h-5 bg-white/10 rounded-full mt-6 overflow-hidden">
 
@@ -176,72 +177,22 @@
 
     </div>
 
-    <!-- JALECO -->
+<!-- CENTRO VISUAL -->
 
-    <div class="glass rounded-3xl p-8 glow relative overflow-hidden">
+<div class="glass rounded-3xl p-10 glow flex flex-col items-center justify-center min-h-[420px]">
 
-      <div class="flex flex-col items-center">
+  <div class="text-[12rem] opacity-20 animate-pulse">
+    🩺
+  </div>
 
-        <div class="relative">
+  <p class="mt-6 text-blue-100 italic text-center text-lg">
+    “Cada questão costura conhecimento ao meu jaleco.”
+  </p>
 
-          <!-- JALECO -->
-
-          <svg width="280" height="340" viewBox="0 0 280 340">
-
-            <!-- brilho -->
-
-            <defs>
-
-              <linearGradient id="fillGradient"
-                x1="0%" y1="100%" x2="0%" y2="0%">
-
-                <stop offset="0%"
-                  stop-color="#38bdf8"/>
-
-                <stop offset="100%"
-                  stop-color="#60a5fa"/>
-
-              </linearGradient>
-
-              <clipPath id="jalecoClip">
-
-                <path id="jalecoPath"
-                  d="M90 40 L190 40 L230 110 L210 300 L70 300 L50 110 Z"/>
-
-              </clipPath>
-
-            </defs>
-
-            <!-- base -->
-
-            <path
-              d="M90 40 L190 40 L230 110 L210 300 L70 300 L50 110 Z"
-              fill="rgba(255,255,255,0.08)"
-              stroke="rgba(255,255,255,0.3)"
-              stroke-width="4"/>
-
-            <!-- preenchimento -->
-
-            <rect id="fillRect"
-              x="0"
-              y="300"
-              width="280"
-              height="0"
-              fill="url(#fillGradient)"
-              clip-path="url(#jalecoClip)"
-              style="transition:all 1s ease"/>
-
-          </svg>
-
-        </div>
-
+</div>
         <p class="mt-6 text-blue-100 italic text-center">
           “Cada questão costura conhecimento ao meu jaleco.”
         </p>
-
-      </div>
-
-    </div>
 
     <!-- GRÁFICO 7 DIAS -->
 
@@ -256,22 +207,6 @@
       </div>
 
     </div>
-
-    <!-- HEATMAP -->
-
-    <div class="glass rounded-3xl p-6 glow">
-
-      <h2 class="text-2xl mb-6 text-cyan-300">
-        🔥 Consistência
-      </h2>
-
-      <div id="heatmap"
-        class="grid grid-cols-10 gap-2">
-      </div>
-
-    </div>
-
-  </div>
 
   <!-- RIGHT -->
 
@@ -423,30 +358,34 @@ document.getElementById("contador").innerText =
 total.toLocaleString();
 
 let progresso =
-Math.min((total/4000)*100,100);
+Math.min((total/1000000)*100,100);
+
+const metaTexto =
+document.getElementById("metaTexto");
+
+if(total < 4000){
+
+metaTexto.innerText =
+`Faltam ${(4000-total).toLocaleString()} questões para a meta.`;
+
+}
+
+else if(total === 4000){
+
+metaTexto.innerText =
+"🩺 META ATINGIDA.";
+
+}
+
+else{
+
+metaTexto.innerText =
+`${(total-4000).toLocaleString()} questões além da meta inicial.`;
+
+}
 
 document.getElementById("barra").style.width =
 progresso + "%";
-
-let fillHeight =
-Math.min((total/4000)*320,320);
-
-const fillRect =
-document.getElementById("fillRect");
-
-if(fillRect){
-
-fillRect.setAttribute(
-"y",
-360-fillHeight
-);
-
-fillRect.setAttribute(
-"height",
-fillHeight
-);
-
-}
 
 localStorage.setItem(
 "totalQuestoes",
@@ -457,7 +396,6 @@ renderizarStatus();
 renderizarNiveis();
 renderizarMaterias();
 renderizarGrafico();
-renderizarHeatmap();
 renderizarCountdown();
 
 }
@@ -499,7 +437,9 @@ JSON.stringify(historico)
 
 document.getElementById("inputQuestoes").value="";
 
+calcularStreak();
 atualizarTela();
+
 
 }
 
@@ -643,7 +583,7 @@ return historico
 let maior =
 Math.max(...dadosDias,1);
 
-dadosDias.forEach((valor,index)=>{
+dadosDias.forEach((valor)=>{
 
 let altura =
 (valor/maior)*180;
@@ -670,51 +610,6 @@ ${valor}
 `;
 
 });
-
-}
-
-function renderizarHeatmap(){
-
-const heat =
-document.getElementById("heatmap");
-
-heat.innerHTML="";
-
-for(let i=29;i>=0;i--){
-
-let d = new Date();
-
-d.setDate(d.getDate()-i);
-
-let dia =
-d.toISOString().split("T")[0];
-
-let totalDia =
-historico
-.filter(item=>item.data===dia)
-.reduce((acc,item)=>acc+item.quantidade,0);
-
-let cor =
-"#0f172a";
-
-if(totalDia>0)cor="#1e3a8a";
-if(totalDia>40)cor="#2563eb";
-if(totalDia>80)cor="#38bdf8";
-if(totalDia>140)cor="#7dd3fc";
-
-heat.innerHTML += `
-
-<div
-class="heat"
-style="
-background:${cor};
-box-shadow:0 0 10px ${cor};
-">
-</div>
-
-`;
-
-}
 
 }
 
