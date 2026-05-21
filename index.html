@@ -431,7 +431,7 @@ document.getElementById("barra").style.width =
 progresso + "%";
 
 let fillHeight =
-Math.min((total/4000)*260,260);
+Math.min((total/4000)*320,320);
 
 const fillRect =
 document.getElementById("fillRect");
@@ -450,7 +450,10 @@ fillHeight
 
 }
 
-localStorage.setItem("totalQuestoes",total);
+localStorage.setItem(
+"totalQuestoes",
+total
+);
 
 renderizarStatus();
 renderizarNiveis();
