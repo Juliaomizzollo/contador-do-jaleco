@@ -1,275 +1,774 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Contador do Jaleco</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Projeto Jaleco</title>
 
   <script src="https://cdn.tailwindcss.com"></script>
 
   <style>
-    body {
-      background: radial-gradient(circle at top, #0f172a, #020617);
-      min-height: 100vh;
-      color: white;
-      font-family: Arial, sans-serif;
-      overflow-x: hidden;
+
+    body{
+      background:
+      radial-gradient(circle at top, #172554 0%, #020617 60%);
+      min-height:100vh;
+      overflow-x:hidden;
+      color:white;
+      font-family:Arial, sans-serif;
     }
 
-    .glass {
-      background: rgba(255,255,255,0.05);
-      backdrop-filter: blur(15px);
-      border: 1px solid rgba(255,255,255,0.1);
+    .glass{
+      background:rgba(255,255,255,0.05);
+      backdrop-filter:blur(18px);
+      border:1px solid rgba(255,255,255,0.1);
     }
 
-    .glow {
-      box-shadow: 0 0 30px rgba(59,130,246,0.3);
+    .glow{
+      box-shadow:0 0 35px rgba(59,130,246,0.18);
     }
 
-    .star {
-      position: fixed;
-      width: 2px;
-      height: 2px;
-      background: white;
-      border-radius: 50%;
-      opacity: 0.5;
-      animation: twinkle 4s infinite alternate;
+    .star{
+      position:fixed;
+      width:2px;
+      height:2px;
+      background:white;
+      border-radius:50%;
+      opacity:0.5;
+      animation:twinkle infinite alternate;
     }
 
-    @keyframes twinkle {
-      from { opacity: 0.2; }
-      to { opacity: 1; }
+    @keyframes twinkle{
+      from{opacity:0.2;}
+      to{opacity:1;}
     }
+
+    .particle{
+      position:absolute;
+      width:6px;
+      height:6px;
+      background:#38bdf8;
+      border-radius:50%;
+      opacity:0.5;
+      animation:floatUp 5s linear infinite;
+    }
+
+    @keyframes floatUp{
+      from{
+        transform:translateY(0px);
+        opacity:0;
+      }
+
+      20%{
+        opacity:0.8;
+      }
+
+      to{
+        transform:translateY(-120px);
+        opacity:0;
+      }
+    }
+
+    .heat{
+      width:18px;
+      height:18px;
+      border-radius:4px;
+      background:#0f172a;
+    }
+
   </style>
 </head>
 
-<body class="p-6">
+<body class="p-4 md:p-8">
 
-  <div id="stars"></div>
+<div id="particles"></div>
 
-  <div class="max-w-7xl mx-auto grid lg:grid-cols-4 gap-6">
+<div class="max-w-7xl mx-auto grid lg:grid-cols-4 gap-6">
 
-    <!-- SIDEBAR -->
-    <div class="glass rounded-3xl p-5 glow">
+  <!-- SIDEBAR -->
 
-      <h1 class="text-4xl font-light mb-2">
-        🩺 Contador do Jaleco
-      </h1>
+  <div class="glass rounded-3xl p-5 glow h-fit">
 
-      <p id="frase" class="text-blue-200 italic mb-6"></p>
+    <h1 class="text-4xl font-light leading-tight">
+      🩺<br>
+      PROJETO<br>
+      JALECO
+    </h1>
 
-      <div class="space-y-3" id="niveis"></div>
+    <p id="frase"
+      class="text-blue-200 italic mt-4 leading-relaxed">
+    </p>
 
-    </div>
+    <div class="mt-8">
 
-    <!-- MAIN -->
-    <div class="lg:col-span-2 space-y-6">
+      <h2 class="text-xl mb-4 text-cyan-300">
+        🚀 Status
+      </h2>
 
-      <!-- CONTADOR -->
-      <div class="glass rounded-3xl p-8 text-center glow">
-
-        <p class="uppercase tracking-[0.4em] text-blue-200 text-sm mb-3">
-          QUESTÕES RESOLVIDAS
-        </p>
-
-        <h2 id="contador" class="text-7xl font-light">
-          0
-        </h2>
-
-        <p class="text-cyan-300 mt-4">
-          Meta inicial: 4.000 • progresso infinito ∞
-        </p>
-
-        <div class="w-full h-4 bg-white/10 rounded-full mt-6 overflow-hidden">
-          <div id="barra"
-            class="h-full bg-gradient-to-r from-cyan-400 to-blue-500"
-            style="width:0%">
-          </div>
-        </div>
-
-      </div>
-
-      <!-- JALECO -->
-      <div class="glass rounded-3xl p-8 glow text-center">
-
-        <img
-          id="jaleco"
-          src="https://i.imgur.com/oYiTqum.png"
-          class="mx-auto w-[350px] transition duration-500"
-        >
-
-        <p class="mt-6 text-blue-100 italic">
-          “Cada questão preenche meu jaleco de conhecimento.”
-        </p>
-
+      <div id="statusAtual"
+        class="text-3xl font-light">
       </div>
 
     </div>
 
-    <!-- LADO DIREITO -->
-    <div class="space-y-6">
+    <div class="mt-8">
 
-      <!-- INPUT -->
-      <div class="glass rounded-3xl p-6 glow">
+      <h2 class="text-xl mb-4 text-cyan-300">
+        🔥 Streak
+      </h2>
 
-        <h3 class="text-2xl mb-4">
-          ✍️ Registrar Questões
-        </h3>
+      <div id="streak"
+        class="text-5xl font-light">
+        0
+      </div>
 
-        <input
-          id="inputQuestoes"
-          type="number"
-          placeholder="Quantas questões hoje?"
-          class="w-full bg-black/30 rounded-2xl p-4 text-white"
-        >
+      <p class="text-white/60">
+        dias seguidos
+      </p>
 
-        <button
-          onclick="adicionarQuestoes()"
-          class="w-full mt-4 bg-gradient-to-r from-cyan-500 to-blue-600 p-4 rounded-2xl text-lg hover:scale-105 transition"
-        >
-          Adicionar ao contador
-        </button>
+    </div>
+
+    <div class="mt-8">
+
+      <h2 class="text-xl mb-4 text-cyan-300">
+        ⏳ EXATO
+      </h2>
+
+      <div id="countdown"
+        class="text-4xl font-light">
+      </div>
+
+      <p class="text-white/60">
+        dias restantes
+      </p>
+
+    </div>
+
+  </div>
+
+  <!-- MAIN -->
+
+  <div class="lg:col-span-2 space-y-6">
+
+    <!-- CONTADOR -->
+
+    <div class="glass rounded-3xl p-8 text-center glow">
+
+      <p class="uppercase tracking-[0.4em] text-blue-200 text-sm">
+        QUESTÕES RESOLVIDAS
+      </p>
+
+      <h2 id="contador"
+        class="text-7xl font-light mt-3">
+      </h2>
+
+      <p class="text-cyan-300 mt-4">
+        Meta inicial: 4.000 • progresso infinito ∞
+      </p>
+
+      <div class="w-full h-5 bg-white/10 rounded-full mt-6 overflow-hidden">
+
+        <div id="barra"
+          class="h-full bg-gradient-to-r from-cyan-400 to-blue-600 transition-all duration-700">
+        </div>
 
       </div>
 
-      <!-- STATUS -->
-      <div class="glass rounded-3xl p-6 glow">
+    </div>
 
-        <h3 class="text-2xl mb-4">
-          🚀 Status Atual
-        </h3>
+    <!-- JALECO -->
 
-        <div id="statusAtual" class="text-4xl text-cyan-300">
-          Interna
+    <div class="glass rounded-3xl p-8 glow relative overflow-hidden">
+
+      <div class="flex flex-col items-center">
+
+        <div class="relative">
+
+          <!-- JALECO -->
+
+          <svg width="280" height="340" viewBox="0 0 280 340">
+
+            <!-- brilho -->
+
+            <defs>
+
+              <linearGradient id="fillGradient"
+                x1="0%" y1="100%" x2="0%" y2="0%">
+
+                <stop offset="0%"
+                  stop-color="#38bdf8"/>
+
+                <stop offset="100%"
+                  stop-color="#60a5fa"/>
+
+              </linearGradient>
+
+              <clipPath id="jalecoClip">
+
+                <path id="jalecoPath"
+                  d="M90 40 L190 40 L230 110 L210 300 L70 300 L50 110 Z"/>
+
+              </clipPath>
+
+            </defs>
+
+            <!-- base -->
+
+            <path
+              d="M90 40 L190 40 L230 110 L210 300 L70 300 L50 110 Z"
+              fill="rgba(255,255,255,0.08)"
+              stroke="rgba(255,255,255,0.3)"
+              stroke-width="4"/>
+
+            <!-- preenchimento -->
+
+            <rect id="fillRect"
+              x="0"
+              y="300"
+              width="280"
+              height="0"
+              fill="url(#fillGradient)"
+              clip-path="url(#jalecoClip)"
+              style="transition:all 1s ease"/>
+
+          </svg>
+
         </div>
 
+        <p class="mt-6 text-blue-100 italic text-center">
+          “Cada questão costura conhecimento ao meu jaleco.”
+        </p>
+
+      </div>
+
+    </div>
+
+    <!-- GRÁFICO 7 DIAS -->
+
+    <div class="glass rounded-3xl p-6 glow">
+
+      <h2 class="text-2xl mb-6 text-cyan-300">
+        📈 Últimos 7 dias
+      </h2>
+
+      <div id="weeklyChart"
+        class="flex items-end justify-between h-64 gap-2">
+      </div>
+
+    </div>
+
+    <!-- HEATMAP -->
+
+    <div class="glass rounded-3xl p-6 glow">
+
+      <h2 class="text-2xl mb-6 text-cyan-300">
+        🔥 Consistência
+      </h2>
+
+      <div id="heatmap"
+        class="grid grid-cols-10 gap-2">
       </div>
 
     </div>
 
   </div>
 
+  <!-- RIGHT -->
+
+  <div class="space-y-6">
+
+    <!-- ADD QUESTOES -->
+
+    <div class="glass rounded-3xl p-6 glow">
+
+      <h2 class="text-2xl mb-5">
+        ✍️ Registrar
+      </h2>
+
+      <input
+        id="inputQuestoes"
+        type="number"
+        placeholder="Quantas questões?"
+        class="w-full bg-black/30 p-4 rounded-2xl mb-4"
+      >
+
+      <select
+        id="materia"
+        class="w-full bg-black/30 p-4 rounded-2xl mb-4">
+
+        <option>Matemática</option>
+        <option>Física</option>
+        <option>Química</option>
+        <option>Biologia</option>
+
+      </select>
+
+      <button
+        onclick="adicionarQuestoes()"
+        class="w-full bg-gradient-to-r from-cyan-500 to-blue-600 p-4 rounded-2xl hover:scale-105 transition">
+
+        Adicionar
+
+      </button>
+
+    </div>
+
+    <!-- MATERIAS -->
+
+    <div class="glass rounded-3xl p-6 glow">
+
+      <h2 class="text-2xl mb-6 text-cyan-300">
+        📊 Matérias
+      </h2>
+
+      <div id="materiasChart"
+        class="space-y-5">
+      </div>
+
+    </div>
+
+    <!-- NIVEIS -->
+
+    <div class="glass rounded-3xl p-6 glow">
+
+      <h2 class="text-2xl mb-6 text-cyan-300">
+        🌌 Evolução
+      </h2>
+
+      <div id="niveis"
+        class="space-y-3">
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
 <script>
 
 const frases = [
-  "Cada questão me aproxima da aprovação.",
-  "Consistência constrói médicas extraordinárias.",
-  "Você não precisa ser perfeita. Precisa continuar.",
-  "Uma futura doutora está sendo construída aqui.",
-  "O impossível só demora um pouco mais.",
-  "Disciplina é amor pelo seu sonho.",
-  "Seu nome já cabe nesse jaleco."
+
+"Consistência constrói aprovação.",
+"Você não precisa ser perfeita. Precisa continuar.",
+"Uma médica extraordinária está sendo construída aqui.",
+"Seu sonho merece disciplina.",
+"O impossível só demora um pouco mais.",
+"Seu nome já pertence a esse jaleco.",
+"Você está mais perto do que imagina.",
+"Cada questão muda sua história."
+
 ];
 
 const niveis = [
-  ["Interna", 500],
-  ["Plantonista", 800],
-  ["Residente", 1500],
-  ["R2", 2500],
-  ["R3", 4000],
-  ["Futura Dra.", 10000],
-  ["Médica Excepcional", 25000],
-  ["Doutora", 50000],
-  ["Lendária", 100000],
-  ["Imparável", 1000000]
+
+["Interna",500],
+["Plantonista",800],
+["Residente",1500],
+["R2",2500],
+["R3",4000],
+["Futura Dra.",10000],
+["Médica Excepcional",25000],
+["Doutora",50000],
+["Lendária",100000],
+["Imparável",1000000]
+
 ];
 
-let total = Number(localStorage.getItem("totalQuestoes")) || 0;
+const materias = {
+
+"Matemática":"#38bdf8",
+"Física":"#8b5cf6",
+"Química":"#22c55e",
+"Biologia":"#facc15"
+
+};
+
+let total =
+Number(localStorage.getItem("totalQuestoes")) || 0;
+
+let dadosMaterias =
+JSON.parse(localStorage.getItem("dadosMaterias")) ||
+
+{
+
+"Matemática":0,
+"Física":0,
+"Química":0,
+"Biologia":0
+
+};
+
+let historico =
+JSON.parse(localStorage.getItem("historico")) || [];
 
 document.getElementById("frase").innerText =
-  frases[new Date().getDate() % frases.length];
+frases[new Date().getDate() % frases.length];
 
-function atualizarTela() {
+function atualizarTela(){
 
-  document.getElementById("contador").innerText =
-    total.toLocaleString();
+document.getElementById("contador").innerText =
+total.toLocaleString();
 
-  let progresso = Math.min((total / 4000) * 100, 100);
+let progresso =
+Math.min((total/4000)*100,100);
 
-  document.getElementById("barra").style.width =
-    progresso + "%";
+document.getElementById("barra").style.width =
+progresso + "%";
 
-  localStorage.setItem("totalQuestoes", total);
+let fillHeight =
+Math.min((total/4000)*260,260);
 
-  atualizarStatus();
-  renderizarNiveis();
+document.getElementById("fillRect")
+.setAttribute("y",300-fillHeight);
 
-}
+document.getElementById("fillRect")
+.setAttribute("height",fillHeight);
 
-function adicionarQuestoes() {
+localStorage.setItem("totalQuestoes",total);
 
-  const input =
-    document.getElementById("inputQuestoes");
-
-  let valor = Number(input.value);
-
-  if (!valor || valor <= 0) return;
-
-  total += valor;
-
-  atualizarTela();
-
-  input.value = "";
+renderizarStatus();
+renderizarNiveis();
+renderizarMaterias();
+renderizarGrafico();
+renderizarHeatmap();
+renderizarCountdown();
 
 }
 
-function atualizarStatus() {
+function adicionarQuestoes(){
 
-  let status = "Interna";
+let qtd =
+Number(document.getElementById("inputQuestoes").value);
 
-  for (let nivel of niveis) {
-    if (total >= nivel[1]) {
-      status = nivel[0];
-    }
-  }
+let materia =
+document.getElementById("materia").value;
 
-  document.getElementById("statusAtual").innerText =
-    status;
+if(!qtd || qtd<=0)return;
 
-}
+total += qtd;
 
-function renderizarNiveis() {
+dadosMaterias[materia]+=qtd;
 
-  const container =
-    document.getElementById("niveis");
+let hoje =
+new Date().toISOString().split("T")[0];
 
-  container.innerHTML = "";
+historico.push({
 
-  niveis.forEach(nivel => {
+data:hoje,
+quantidade:qtd,
+materia:materia
 
-    let ativo = total >= nivel[1];
+});
 
-    container.innerHTML += `
-      <div class="
-        p-3 rounded-2xl
-        ${ativo ? 'bg-cyan-500/20 border border-cyan-400' : 'bg-white/5'}
-      ">
-        <div class="flex justify-between">
-          <span>${nivel[0]}</span>
-          <span>${nivel[1].toLocaleString()}+</span>
-        </div>
-      </div>
-    `;
-  });
+localStorage.setItem(
+"dadosMaterias",
+JSON.stringify(dadosMaterias)
+);
 
-}
+localStorage.setItem(
+"historico",
+JSON.stringify(historico)
+);
 
-for(let i=0;i<80;i++){
+document.getElementById("inputQuestoes").value="";
 
-  let star = document.createElement("div");
-
-  star.classList.add("star");
-
-  star.style.left = Math.random()*100 + "vw";
-  star.style.top = Math.random()*100 + "vh";
-
-  star.style.animationDuration =
-    (Math.random()*5+2)+"s";
-
-  document.body.appendChild(star);
+atualizarTela();
 
 }
 
+function renderizarStatus(){
+
+let atual="Interna";
+
+for(let nivel of niveis){
+
+if(total>=nivel[1]){
+
+atual=nivel[0];
+
+}
+
+}
+
+document.getElementById("statusAtual").innerText =
+atual;
+
+}
+
+function renderizarNiveis(){
+
+const container =
+document.getElementById("niveis");
+
+container.innerHTML="";
+
+niveis.forEach(nivel=>{
+
+let ativo =
+total>=nivel[1];
+
+container.innerHTML += `
+
+<div class="
+p-3 rounded-2xl
+${ativo ?
+'bg-cyan-500/20 border border-cyan-400'
+:
+'bg-white/5'}
+">
+
+<div class="flex justify-between">
+
+<span>${nivel[0]}</span>
+
+<span>${nivel[1].toLocaleString()}+</span>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+}
+
+function renderizarMaterias(){
+
+const container =
+document.getElementById("materiasChart");
+
+container.innerHTML="";
+
+let maior =
+Math.max(...Object.values(dadosMaterias),1);
+
+for(let materia in dadosMaterias){
+
+let valor =
+dadosMaterias[materia];
+
+let largura =
+(valor/maior)*100;
+
+container.innerHTML += `
+
+<div>
+
+<div class="flex justify-between mb-1">
+
+<span>${materia}</span>
+
+<span>${valor}</span>
+
+</div>
+
+<div class="w-full h-4 bg-white/10 rounded-full overflow-hidden">
+
+<div
+style="
+width:${largura}%;
+background:${materias[materia]};
+height:100%;
+box-shadow:0 0 15px ${materias[materia]};
+">
+</div>
+
+</div>
+
+</div>
+
+`;
+
+}
+
+}
+
+function renderizarGrafico(){
+
+const chart =
+document.getElementById("weeklyChart");
+
+chart.innerHTML="";
+
+let dias = [];
+
+for(let i=6;i>=0;i--){
+
+let d = new Date();
+
+d.setDate(d.getDate()-i);
+
+dias.push(
+d.toISOString().split("T")[0]
+);
+
+}
+
+let dadosDias = dias.map(dia=>{
+
+return historico
+.filter(item=>item.data===dia)
+.reduce((acc,item)=>acc+item.quantidade,0);
+
+});
+
+let maior =
+Math.max(...dadosDias,1);
+
+dadosDias.forEach((valor,index)=>{
+
+let altura =
+(valor/maior)*180;
+
+chart.innerHTML += `
+
+<div class="flex flex-col items-center w-full">
+
+<div
+class="w-full rounded-t-2xl"
+style="
+height:${altura}px;
+background:linear-gradient(to top,#38bdf8,#2563eb);
+box-shadow:0 0 20px rgba(56,189,248,0.5);
+">
+</div>
+
+<p class="mt-3 text-sm text-white/60">
+${valor}
+</p>
+
+</div>
+
+`;
+
+});
+
+}
+
+function renderizarHeatmap(){
+
+const heat =
+document.getElementById("heatmap");
+
+heat.innerHTML="";
+
+for(let i=29;i>=0;i--){
+
+let d = new Date();
+
+d.setDate(d.getDate()-i);
+
+let dia =
+d.toISOString().split("T")[0];
+
+let totalDia =
+historico
+.filter(item=>item.data===dia)
+.reduce((acc,item)=>acc+item.quantidade,0);
+
+let cor =
+"#0f172a";
+
+if(totalDia>0)cor="#1e3a8a";
+if(totalDia>40)cor="#2563eb";
+if(totalDia>80)cor="#38bdf8";
+if(totalDia>140)cor="#7dd3fc";
+
+heat.innerHTML += `
+
+<div
+class="heat"
+style="
+background:${cor};
+box-shadow:0 0 10px ${cor};
+">
+</div>
+
+`;
+
+}
+
+}
+
+function renderizarCountdown(){
+
+let prova =
+new Date("2026-10-18");
+
+let hoje =
+new Date();
+
+let diff =
+prova-hoje;
+
+let dias =
+Math.ceil(diff/(1000*60*60*24));
+
+document.getElementById("countdown")
+.innerText=dias;
+
+}
+
+function calcularStreak(){
+
+let dias = new Set();
+
+historico.forEach(item=>{
+
+dias.add(item.data);
+
+});
+
+let streak = dias.size;
+
+document.getElementById("streak")
+.innerText = streak;
+
+}
+
+for(let i=0;i<120;i++){
+
+let star =
+document.createElement("div");
+
+star.classList.add("star");
+
+star.style.left =
+Math.random()*100 + "vw";
+
+star.style.top =
+Math.random()*100 + "vh";
+
+star.style.animationDuration =
+(Math.random()*5+2)+"s";
+
+document.body.appendChild(star);
+
+}
+
+for(let i=0;i<30;i++){
+
+let p =
+document.createElement("div");
+
+p.classList.add("particle");
+
+p.style.left =
+(Math.random()*100)+"vw";
+
+p.style.bottom =
+(Math.random()*40)+"px";
+
+p.style.animationDelay =
+(Math.random()*5)+"s";
+
+document.body.appendChild(p);
+
+}
+
+calcularStreak();
 atualizarTela();
 
 </script>
