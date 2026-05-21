@@ -92,10 +92,6 @@
       class="text-blue-200 italic mt-4 leading-relaxed">
     </p>
 
-    <!-- NOVA FRASE -->
-
-    <div class="mt-8">
-
     <!-- STATUS -->
 
     <div class="mt-8">
@@ -212,7 +208,7 @@
 
   <!-- RIGHT -->
 
-  <div class="space-y-6">
+  <div class="lg:col-span-1 space-y-6">
 
     <!-- REGISTRAR -->
 
@@ -312,7 +308,7 @@ const frases = [
 
 "Desistir não está no seu vocabulário!",
 
- "Sonhe alto. Seu Deus é maior que seus sonhos.",
+"Sonhe alto. Seu Deus é maior que seus sonhos.",
 
 "Você está mais perto do que imagina.",
 
@@ -332,13 +328,13 @@ const frases = [
 
 "Deus já reservou sua vaga em medicina.",
 
-"Estude hoje como a médica que você quer se tornar." ,
+"Estude hoje como a médica que você quer se tornar.",
 
 "Dra Julia, já fez quantas questões hoje?",
 
-"Leia Josue 1:9, pega um cafézinho e vem fazer questão!",
+"Leia Josué 1:9, pega um cafézinho e vem fazer questão!",
 
-"Estudar hoje é honrar quem você quer se tornar.",
+"Estudar hoje é honrar quem você quer se tornar."
 
 ];
 
@@ -392,11 +388,16 @@ JSON.parse(localStorage.getItem("dadosMaterias")) ||
 let historico =
 JSON.parse(localStorage.getItem("historico")) || [];
 
-  
 const fraseDoDia =
 frases[
 new Date().getDate() % frases.length
 ];
+
+document.getElementById("frase").innerText =
+fraseDoDia;
+
+document.getElementById("fraseCentral").innerText =
+fraseDoDia;
 
 function atualizarTela(){
 
@@ -487,7 +488,6 @@ calcularStreak();
 atualizarTela();
 
 }
-
 
 function renderizarStatus(){
 
