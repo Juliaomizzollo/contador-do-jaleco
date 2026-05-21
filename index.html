@@ -340,16 +340,16 @@ const frases = [
 
 const niveis = [
 
-["Interna",500],
-["Plantonista",800],
-["Residente",1500],
-["R2",2500],
-["R3",4000],
-["Futura Dra.",10000],
-["Médica Excepcional",25000],
-["Doutora",50000],
-["Lendária",100000],
-["Imparável",1000000]
+["Interna",200],
+["Plantonista",500],
+["Residente",1000],
+["R2",1200],
+["R3",1800],
+["Futura Dra.",2000],
+["Excepcional",2500],
+["Doutora",3000],
+["Lendária",3500],
+["Imparável",4000]
 
 ];
 
@@ -405,7 +405,7 @@ document.getElementById("contador").innerText =
 total.toLocaleString();
 
 let progresso =
-Math.min((total/1000000)*100,100);
+Math.min((total/4000)*100,100);
 
 const metaTexto =
 document.getElementById("metaTexto");
