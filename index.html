@@ -176,132 +176,62 @@
 
     </div>
 
- <!-- JALECO CINEMA -->
+    <!-- JALECO -->
 
-<div class="relative flex justify-center">
+    <div class="glass rounded-3xl p-8 glow relative overflow-hidden">
 
-<svg width="320" height="420" viewBox="0 0 320 420">
+      <div class="flex flex-col items-center">
 
-<defs>
+        <div class="relative">
 
-<linearGradient id="fillGradient"
-x1="0%" y1="100%" x2="0%" y2="0%">
+          <!-- JALECO -->
 
-<stop offset="0%" stop-color="#38bdf8"/>
-<stop offset="100%" stop-color="#60a5fa"/>
+          <svg width="280" height="340" viewBox="0 0 280 340">
 
-</linearGradient>
+            <!-- brilho -->
 
-<clipPath id="jalecoClip">
+            <defs>
 
-<path
-d="
-M110 40
-L210 40
-L260 120
-L235 360
-L85 360
-L60 120
-Z
-"/>
+              <linearGradient id="fillGradient"
+                x1="0%" y1="100%" x2="0%" y2="0%">
 
-</clipPath>
+                <stop offset="0%"
+                  stop-color="#38bdf8"/>
 
-</defs>
+                <stop offset="100%"
+                  stop-color="#60a5fa"/>
 
-<!-- corpo -->
+              </linearGradient>
 
-<path
-d="
-M110 40
-L210 40
-L260 120
-L235 360
-L85 360
-L60 120
-Z
-"
-fill="rgba(255,255,255,0.08)"
-stroke="rgba(255,255,255,0.25)"
-stroke-width="4"
-/>
+              <clipPath id="jalecoClip">
 
-<!-- mangas -->
+                <path id="jalecoPath"
+                  d="M90 40 L190 40 L230 110 L210 300 L70 300 L50 110 Z"/>
 
-<path
-d="M60 120 L20 180 L50 220 L85 180 Z"
-fill="rgba(255,255,255,0.05)"
-stroke="rgba(255,255,255,0.12)"
-stroke-width="3"
-/>
+              </clipPath>
 
-<path
-d="M260 120 L300 180 L270 220 L235 180 Z"
-fill="rgba(255,255,255,0.05)"
-stroke="rgba(255,255,255,0.12)"
-stroke-width="3"
-/>
+            </defs>
 
-<!-- lapelas -->
+            <!-- base -->
 
-<path
-d="M140 95 L120 180 L160 180 Z"
-fill="rgba(255,255,255,0.14)"
-/>
+            <path
+              d="M90 40 L190 40 L230 110 L210 300 L70 300 L50 110 Z"
+              fill="rgba(255,255,255,0.08)"
+              stroke="rgba(255,255,255,0.3)"
+              stroke-width="4"/>
 
-<path
-d="M180 95 L200 180 L160 180 Z"
-fill="rgba(255,255,255,0.14)"
-/>
+            <!-- preenchimento -->
 
-<!-- bolso -->
+            <rect id="fillRect"
+              x="0"
+              y="300"
+              width="280"
+              height="0"
+              fill="url(#fillGradient)"
+              clip-path="url(#jalecoClip)"
+              style="transition:all 1s ease"/>
 
-<rect
-x="185"
-y="220"
-width="35"
-height="40"
-rx="6"
-fill="rgba(255,255,255,0.08)"
-/>
-
-<!-- preenchimento -->
-
-<rect
-id="fillRect"
-x="0"
-y="360"
-width="320"
-height="0"
-fill="url(#fillGradient)"
-clip-path="url(#jalecoClip)"
-style="
-transition:all 1s ease;
-filter:drop-shadow(0 0 18px rgba(56,189,248,0.5));
-"
-/>
-
-<!-- botões -->
-
-<circle cx="160" cy="150" r="4" fill="rgba(255,255,255,0.4)"/>
-<circle cx="160" cy="190" r="4" fill="rgba(255,255,255,0.4)"/>
-<circle cx="160" cy="230" r="4" fill="rgba(255,255,255,0.4)"/>
-
-<!-- nome -->
-
-<text
-x="115"
-y="210"
-fill="rgba(255,255,255,0.45)"
-font-size="14"
-font-family="Arial"
->
-Dra. Julia L. Omizzollo
-</text>
-
-</svg>
-
-</div>
+          </svg>
 
         </div>
 
@@ -366,14 +296,14 @@ Dra. Julia L. Omizzollo
         id="materia"
         class="w-full bg-black/30 p-4 rounded-2xl mb-4">
 
-       <option>Matemática</option>
-       <option>Física</option>
-       <option>Química</option>
-       <option>Biologia</option>
-       <option>História</option>
-       <option>Geografia</option>
-       <option>Sociologia/Filosofia</option>
-       <option>Linguagens</option>
+        <option>Matemática</option>
+        <option>Física</option>
+        <option>Química</option>
+        <option>Biologia</option>
+        <option>História</option>
+        <option>Geografia</option>
+        <option>Sociologia/Filosofia</option>
+        <option>Linguagens</option>
 
       </select>
 
@@ -462,13 +392,13 @@ const materias = {
 
 };
 
+};
+
 let total =
 Number(localStorage.getItem("totalQuestoes")) || 0;
 
 let dadosMaterias =
 JSON.parse(localStorage.getItem("dadosMaterias")) ||
-
-{
 
 {
 
