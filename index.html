@@ -739,21 +739,51 @@ document.getElementById("countdown")
 
 function calcularStreak(){
 
-let dias = new Set();
+let dias = [...new Set(
+historico.map(item=>item.data)
+)].sort().reverse();
 
-historico.forEach(item=>{
+if(dias.length===0){
 
-dias.add(item.data);
+document.getElementById("streak")
+.innerText = 0;
 
-});
+return;
 
-let streak = dias.size;
+}
+
+let streak = 0;
+
+let atual = new Date();
+
+for(let dia of dias){
+
+let dataDia = new Date(dia);
+
+let diff =
+Math.floor(
+(atual - dataDia)
+/(1000*60*60*24)
+);
+
+if(diff===streak){
+
+streak++;
+
+atual.setDate(atual.getDate()-1);
+
+}else{
+
+break;
+
+}
+
+}
 
 document.getElementById("streak")
 .innerText = streak;
 
 }
-
 for(let i=0;i<120;i++){
 
 let star =
