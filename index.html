@@ -296,10 +296,14 @@
         id="materia"
         class="w-full bg-black/30 p-4 rounded-2xl mb-4">
 
-        <option>Matemática</option>
-        <option>Física</option>
-        <option>Química</option>
-        <option>Biologia</option>
+       <option>Matemática</option>
+       <option>Física</option>
+       <option>Química</option>
+       <option>Biologia</option>
+       <option>História</option>
+       <option>Geografia</option>
+       <option>Sociologia/Filosofia</option>
+       <option>Linguagens</option>
 
       </select>
 
@@ -380,7 +384,11 @@ const materias = {
 "Matemática":"#38bdf8",
 "Física":"#8b5cf6",
 "Química":"#22c55e",
-"Biologia":"#facc15"
+"Biologia":"#facc15",
+"História":"#f97316",
+"Geografia":"#14b8a6",
+"Sociologia/Filosofia":"#ec4899",
+"Linguagens":"#a855f7"
 
 };
 
@@ -392,10 +400,16 @@ JSON.parse(localStorage.getItem("dadosMaterias")) ||
 
 {
 
+{
+
 "Matemática":0,
 "Física":0,
 "Química":0,
-"Biologia":0
+"Biologia":0,
+"História":0,
+"Geografia":0,
+"Sociologia/Filosofia":0,
+"Linguagens":0
 
 };
 
