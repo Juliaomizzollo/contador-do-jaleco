@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contador do Jaleco</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    body {
+      background: radial-gradient(circle at top, #0f172a, #020617);
+      min-height: 100vh;
+      color: white;
+      font-family: Arial, sans-serif;
+      overflow-x: hidden;
+    }
+
+    .glass {
+      background: rgba(255,255,255,0.05);
+      backdrop-filter: blur(15px);
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .glow {
+      box-shadow: 0 0 30px rgba(59,130,246,0.3);
+    }
+
+    .star {
+      position: fixed;
+      width: 2px;
+      height: 2px;
+      background: white;
+      border-radius: 50%;
+      opacity: 0.5;
+      animation: twinkle 4s infinite alternate;
+    }
+
+    @keyframes twinkle {
+      from { opacity: 0.2; }
+      to { opacity: 1; }
+    }
+  </style>
+</head>
+
+<body class="p-6">
+
+  <div id="stars"></div>
+
+  <div class="max-w-7xl mx-auto grid lg:grid-cols-4 gap-6">
+
+    <!-- SIDEBAR -->
+    <div class="glass rounded-3xl p-5 glow">
+
+      <h1 class="text-4xl font-light mb-2">
+        🩺 Contador do Jaleco
+      </h1>
+
+      <p id="frase" class="text-blue-200 italic mb-6"></p>
+
+      <div class="space-y-3" id="niveis"></div>
+
+    </div>
+
+    <!-- MAIN -->
+    <div class="lg:col-span-2 space-y-6">
+
+      <!-- CONTADOR -->
+      <div class="glass rounded-3xl p-8 text-center glow">
+
+        <p class="uppercase tracking-[0.4em] text-blue-200 text-sm mb-3">
+          QUESTÕES RESOLVIDAS
+        </p>
+
+        <h2 id="contador" class="text-7xl font-light">
+          0
+        </h2>
+
+        <p class="text-cyan-300 mt-4">
+          Meta inicial: 4.000 • progresso infinito ∞
+        </p>
+
+        <div class="w-full h-4 bg-white/10 rounded-full mt-6 overflow-hidden">
+          <div id="barra"
+            class="h-full bg-gradient-to-r from-cyan-400 to-blue-500"
+            style="width:0%">
+          </div>
+        </div>
+
+      </div>
+
+      <!-- JALECO -->
+      <div class="glass rounded-3xl p-8 glow text-center">
+
+        <img
+          id="jaleco"
+          src="https://i.imgur.com/oYiTqum.png"
+          class="mx-auto w-[350px] transition duration-500"
+        >
+
+        <p class="mt-6 text-blue-100 italic">
+          “Cada questão preenche meu jaleco de conhecimento.”
+        </p>
+
+      </div>
+
+    </div>
+
+    <!-- LADO DIREITO -->
+    <div class="space-y-6">
+
+      <!-- INPUT -->
+      <div class="glass rounded-3xl p-6 glow">
+
+        <h3 class="text-2xl mb-4">
+          ✍️ Registrar Questões
+        </h3>
+
+        <input
+          id="inputQuestoes"
+          type="number"
+          placeholder="Quantas questões hoje?"
+          class="w-full bg-black/30 rounded-2xl p-4 text-white"
+        >
+
+        <button
+          onclick="adicionarQuestoes()"
+          class="w-full mt-4 bg-gradient-to-r from-cyan-500 to-blue-600 p-4 rounded-2xl text-lg hover:scale-105 transition"
+        >
+          Adicionar ao contador
+        </button>
+
+      </div>
+
+      <!-- STATUS -->
+      <div class="glass rounded-3xl p-6 glow">
+
+        <h3 class="text-2xl mb-4">
+          🚀 Status Atual
+        </h3>
+
+        <div id="statusAtual" class="text-4xl text-cyan-300">
+          Interna
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+<script>
+
+const frases = [
+  "Cada questão me aproxima da aprovação.",
+  "Consistência constrói médicas extraordinárias.",
+  "Você não precisa ser perfeita. Precisa continuar.",
+  "Uma futura doutora está sendo construída aqui.",
+  "O impossível só demora um pouco mais.",
+  "Disciplina é amor pelo seu sonho.",
+  "Seu nome já cabe nesse jaleco."
+];
+
+const niveis = [
+  ["Interna", 500],
+  ["Plantonista", 800],
+  ["Residente", 1500],
+  ["R2", 2500],
+  ["R3", 4000],
+  ["Futura Dra.", 10000],
+  ["Médica Excepcional", 25000],
+  ["Doutora", 50000],
+  ["Lendária", 100000],
+  ["Imparável", 1000000]
+];
+
+let total = Number(localStorage.getItem("totalQuestoes")) || 0;
+
+document.getElementById("frase").innerText =
+  frases[new Date().getDate() % frases.length];
+
+function atualizarTela() {
+
+  document.getElementById("contador").innerText =
+    total.toLocaleString();
+
+  let progresso = Math.min((total / 4000) * 100, 100);
+
+  document.getElementById("barra").style.width =
+    progresso + "%";
+
+  localStorage.setItem("totalQuestoes", total);
+
+  atualizarStatus();
+  renderizarNiveis();
+
+}
+
+function adicionarQuestoes() {
+
+  const input =
+    document.getElementById("inputQuestoes");
+
+  let valor = Number(input.value);
+
+  if (!valor || valor <= 0) return;
+
+  total += valor;
+
+  atualizarTela();
+
+  input.value = "";
+
+}
+
+function atualizarStatus() {
+
+  let status = "Interna";
+
+  for (let nivel of niveis) {
+    if (total >= nivel[1]) {
+      status = nivel[0];
+    }
+  }
+
+  document.getElementById("statusAtual").innerText =
+    status;
+
+}
+
+function renderizarNiveis() {
+
+  const container =
+    document.getElementById("niveis");
+
+  container.innerHTML = "";
+
+  niveis.forEach(nivel => {
+
+    let ativo = total >= nivel[1];
+
+    container.innerHTML += `
+      <div class="
+        p-3 rounded-2xl
+        ${ativo ? 'bg-cyan-500/20 border border-cyan-400' : 'bg-white/5'}
+      ">
+        <div class="flex justify-between">
+          <span>${nivel[0]}</span>
+          <span>${nivel[1].toLocaleString()}+</span>
+        </div>
+      </div>
+    `;
+  });
+
+}
+
+for(let i=0;i<80;i++){
+
+  let star = document.createElement("div");
+
+  star.classList.add("star");
+
+  star.style.left = Math.random()*100 + "vw";
+  star.style.top = Math.random()*100 + "vh";
+
+  star.style.animationDuration =
+    (Math.random()*5+2)+"s";
+
+  document.body.appendChild(star);
+
+}
+
+atualizarTela();
+
+</script>
+
+</body>
+</html>
