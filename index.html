@@ -69,13 +69,6 @@
       }
     }
 
-    .heat{
-      width:18px;
-      height:18px;
-      border-radius:4px;
-      background:#0f172a;
-    }
-
   </style>
 </head>
 
@@ -99,6 +92,12 @@
       class="text-blue-200 italic mt-4 leading-relaxed">
     </p>
 
+    <!-- NOVA FRASE -->
+
+    <div class="mt-8">
+
+    <!-- STATUS -->
+
     <div class="mt-8">
 
       <h2 class="text-xl mb-4 text-cyan-300">
@@ -110,6 +109,8 @@
       </div>
 
     </div>
+
+    <!-- STREAK -->
 
     <div class="mt-8">
 
@@ -127,6 +128,8 @@
       </p>
 
     </div>
+
+    <!-- COUNTDOWN -->
 
     <div class="mt-8">
 
@@ -162,10 +165,10 @@
         class="text-7xl font-light mt-3">
       </h2>
 
-     <p
-     id="metaTexto"
-     class="text-cyan-300 mt-4 text-lg">
-     </p>
+      <p
+        id="metaTexto"
+        class="text-cyan-300 mt-4 text-lg">
+      </p>
 
       <div class="w-full h-5 bg-white/10 rounded-full mt-6 overflow-hidden">
 
@@ -177,24 +180,21 @@
 
     </div>
 
-<!-- CENTRO VISUAL -->
+    <!-- CENTRO VISUAL -->
 
-<div class="glass rounded-3xl p-10 glow flex flex-col items-center justify-center min-h-[420px]">
+    <div class="glass rounded-3xl p-10 glow flex flex-col items-center justify-center min-h-[420px]">
 
-  <div class="text-[12rem] opacity-20 animate-pulse">
-    🩺
-  </div>
+      <div class="text-[12rem] opacity-20 animate-pulse">
+        🩺
+      </div>
 
-  <p class="mt-6 text-blue-100 italic text-center text-lg">
-    “Cada questão costura conhecimento ao meu jaleco.”
-  </p>
+      <p id="fraseCentral"
+        class="mt-6 text-blue-100 italic text-center text-lg max-w-xl">
+      </p>
 
-</div>
-        <p class="mt-6 text-blue-100 italic text-center">
-          “Cada questão costura conhecimento ao meu jaleco.”
-        </p>
+    </div>
 
-    <!-- GRÁFICO 7 DIAS -->
+    <!-- GRÁFICO -->
 
     <div class="glass rounded-3xl p-6 glow">
 
@@ -208,11 +208,13 @@
 
     </div>
 
+  </div>
+
   <!-- RIGHT -->
 
   <div class="space-y-6">
 
-    <!-- ADD QUESTOES -->
+    <!-- REGISTRAR -->
 
     <div class="glass rounded-3xl p-6 glow">
 
@@ -252,7 +254,7 @@
 
     </div>
 
-    <!-- MATERIAS -->
+    <!-- MATÉRIAS -->
 
     <div class="glass rounded-3xl p-6 glow">
 
@@ -266,7 +268,7 @@
 
     </div>
 
-    <!-- NIVEIS -->
+    <!-- EVOLUÇÃO -->
 
     <div class="glass rounded-3xl p-6 glow">
 
@@ -289,13 +291,54 @@
 const frases = [
 
 "Consistência constrói aprovação.",
-"Você não precisa ser perfeita. Precisa continuar.",
-"Uma médica extraordinária está sendo construída aqui.",
+
+"Você não precisa ser perfeita. Precisa continuar tentando.",
+
+"Tanta questão que Cristina Yang ficaria orgulhosa!",
+
+"Existem dois tipos de dores: a dor da disciplina e a dor do arrependimento. Escolha a sua.",
+
 "Seu sonho merece disciplina.",
+
+"Seu consultório na Neurologia está te esperando. E você, está lutando por ele?",
+
+"Ou você sacrifica pelo seu sonho ou seu sonho se torna o sacrifício.",
+
 "O impossível só demora um pouco mais.",
+
+"A diferença entre quem passa e quem fracassa é somente o fato de que um deles escolheu não desistir.",
+
 "Seu nome já pertence a esse jaleco.",
+
+"Desistir não está no seu vocabulário!",
+
+ "Sonhe alto. Seu Deus é maior que seus sonhos.",
+
 "Você está mais perto do que imagina.",
-"Cada questão muda sua história."
+
+"Disciplina também é uma forma de fé.",
+
+"A aprovação é construída nos dias comuns.",
+
+"Pequenos esforços repetidos criam futuros gigantes.",
+
+"Deus não desperdiça processos.",
+
+"Uma questão de cada vez. Um dia de cada vez.",
+
+"Grandes sonhos exigem constância silenciosa.",
+
+"Você não chegou até aqui para parar agora.",
+
+"Deus já reservou sua vaga em medicina.",
+
+"Estude hoje como a médica que você quer se tornar." ,
+
+"Dra Julia, já fez quantas questões hoje?",
+
+"Leia Josue 1:9, pega um cafézinho e vem fazer questão!",
+
+"Estudar hoje é honrar quem você quer se tornar.",
 
 ];
 
@@ -349,8 +392,11 @@ JSON.parse(localStorage.getItem("dadosMaterias")) ||
 let historico =
 JSON.parse(localStorage.getItem("historico")) || [];
 
-document.getElementById("frase").innerText =
-frases[new Date().getDate() % frases.length];
+  
+const fraseDoDia =
+frases[
+new Date().getDate() % frases.length
+];
 
 function atualizarTela(){
 
@@ -440,8 +486,8 @@ document.getElementById("inputQuestoes").value="";
 calcularStreak();
 atualizarTela();
 
-
 }
+
 
 function renderizarStatus(){
 
@@ -679,6 +725,7 @@ document.getElementById("streak")
 .innerText = streak;
 
 }
+
 for(let i=0;i<120;i++){
 
 let star =
